@@ -176,3 +176,4 @@ dist
 
 pb_data
 pocketbase
+pb_schema.json
