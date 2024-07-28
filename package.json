@@ -1,9 +1,9 @@
 {
-  "name": "llm-pocketbase",
+  "name": "llm-sql",
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun index.ts"
+    "dev": "bun cli.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -12,6 +12,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "mysql-query-validator": "^0.0.4",
     "ollama": "^0.5.6"
   }
 }
