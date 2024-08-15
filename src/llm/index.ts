@@ -2,7 +2,7 @@ import ollama from "ollama";
 import { isValidSQL, tryExtractSQLFromMarkdown } from "../util";
 import { systemPrompt } from "./prompts";
 
-const MAX_REC_DEPTH = 5;
+const MAX_REC_DEPTH = 10;
 const DEFAULT_LLM = "phi3";
 
 export async function translateToSQL(
