@@ -3,7 +3,7 @@ import { isValidSQL, tryExtractSQLFromMarkdown } from "../util";
 import { systemPrompt } from "./prompts";
 
 const MAX_REC_DEPTH = 10;
-const DEFAULT_LLM = "phi3";
+const DEFAULT_LLM = "llama3";
 
 export async function translateToSQL(
   userQuery: string,
