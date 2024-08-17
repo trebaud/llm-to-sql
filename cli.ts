@@ -3,13 +3,22 @@ import { parseArgs } from "util";
 import { DatabaseFactory } from "./src/db/DatabaseFactory";
 import { translateToSQL } from "./src/llm";
 
-export function getArgs() {
+interface Args {
+  query: string;
+  model: string;
+  db: string;
+  dataFilename?: string;
+  schemaFilename?: string;
+  exec?: boolean;
+}
+
+export function getArgs(): Args {
   const { values, positionals } = parseArgs({
     args: Bun.argv,
     options: {
       model: {
         type: "string",
-        default: "phi3",
+        default: "llama3",
       },
       db: {
         type: "string",
@@ -29,7 +38,15 @@ export function getArgs() {
     allowPositionals: true,
   });
   const [, , ...rest] = positionals;
-  return { query: rest.join(" "), ...values };
+  const { model, db, dataFilename, schemaFilename, exec } = values;
+  return {
+    query: rest.join(" "),
+    model: model!!,
+    db: db!!,
+    dataFilename,
+    schemaFilename,
+    exec,
+  };
 }
 
 async function run() {
@@ -47,7 +64,7 @@ async function run() {
 
   const db = DatabaseFactory.createDatabase(conf);
   const schema = db.getSchemaForLLM();
-  const sql = await translateToSQL(query, schema, model);
+  const sql = await translateToSQL(query, schema, model!!);
   console.log(`\n### Generated SQL: <${sql}>`);
 
   if (exec) {

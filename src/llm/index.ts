@@ -3,14 +3,12 @@ import { isValidSQL, tryExtractSQLFromMarkdown } from "../util";
 import { systemPrompt } from "./prompts";
 
 const MAX_REC_DEPTH = 10;
-const DEFAULT_LLM = "llama3";
 
 export async function translateToSQL(
   userQuery: string,
   dbSchema: string,
-  model?: string,
+  llm: string,
 ): Promise<string> {
-  const llm = model || DEFAULT_LLM;
   const queryPrompt = `${systemPrompt}. Here is the db schema: ${dbSchema}. Here is the user query: ${userQuery}`;
   console.log(`**** Generating SQL using ${llm} 🤖...`);
   return translateToSQLRec(queryPrompt, llm);
