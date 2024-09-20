@@ -1,4 +1,4 @@
-# llm-sql
+# llm-to-sql
 
 To install dependencies:
 
